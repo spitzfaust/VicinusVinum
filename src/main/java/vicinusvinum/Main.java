@@ -14,7 +14,7 @@ import vicinusvinum.knn.Instance;
  * Created by tobias.
  */
 public class Main {
-    public static void main(String[] args) throws IOException {
+    private static List<Instance<Double>> getRedWineInstances() throws IOException {
         File data = new File("./datasets/winequality-red.csv");
         List<Instance<Double>> instances = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(data))) {
@@ -33,6 +33,31 @@ public class Main {
                 }
             }
         }
+        return instances;
+    }
+
+    private static List<Instance<String>> getIrisInstances() throws IOException {
+        File data = new File("./datasets/iris.txt");
+        List<Instance<String>> instances = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(data))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                final String[] tokens = line.split(",");
+                final Double[] convertedTokens = new Double[tokens.length - 1];
+                for (int i = 0; i < tokens.length -1; i++) {
+                    convertedTokens[i] = Double.parseDouble(tokens[i]);
+                }
+                instances.add(new Instance<>(tokens[tokens.length - 1], convertedTokens));
+
+            }
+        }
+        return instances;
+    }
+
+    public static void main(String[] args) throws IOException {
+        File data = new File("./datasets/winequality-red.csv");
+        //List<Instance<Double>> instances = getRedWineInstances();
+        List<Instance<String>> instances = getIrisInstances();
         for (Instance instance : instances) {
             System.out.println(instance);
         }
