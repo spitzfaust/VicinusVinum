@@ -3,25 +3,11 @@ package vicinusvinum.knn;
 /**
  * Created by tobias.
  */
-public class DistanceComparator implements Comparable<DistanceComparator> {
-    private final Instance<?> instance;
-    private final Double distance;
+public interface DistanceComparator<T extends Comparable> extends Comparable<DistanceComparator> {
 
-    public DistanceComparator(Instance<?> instance, Double distance) {
-        this.instance = instance;
-        this.distance = distance;
-    }
+    Instance<T> getInstance();
 
-    public Instance<?> getInstance() {
-        return instance;
-    }
+    Double getDistance();
 
-    public Double getDistance() {
-        return distance;
-    }
-
-    @Override
-    public int compareTo(DistanceComparator distanceComparator) {
-        return this.distance.compareTo(distanceComparator.getDistance());
-    }
+    int compareTo(DistanceComparator distanceComparator);
 }

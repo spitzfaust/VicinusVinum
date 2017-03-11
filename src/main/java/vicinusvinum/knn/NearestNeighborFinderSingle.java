@@ -10,19 +10,22 @@ import java.util.stream.Collectors;
 public class NearestNeighborFinderSingle implements NearestNeighborFinder {
 
     @Override
-    public <T extends Comparable> List<DistanceComparator> find(Instance<T> toClassify, List<Instance<T>> classifiedData, long numberOfNeighbors, DistanceCalculator distanceCalculator) {
-        if(numberOfNeighbors <= 0) {
-            throw new IllegalStateException();
+    public <T extends Comparable> List<DistanceComparator<T>> find(Instance<T> toClassify, List<Instance<T>> classifiedData, long numberOfNeighbors, DistanceCalculator distanceCalculator) {
+        if (numberOfNeighbors <= 0) {
+            throw new IllegalStateException("Number of neighbors is 0 or below 0.");
         }
-        if(numberOfNeighbors > classifiedData.size()) {
-            throw new IllegalStateException();
+        if (classifiedData.isEmpty()) {
+            throw new IllegalStateException("Classified data list is empty.");
         }
-        if(classifiedData.size() == 0) {
-            throw new IllegalStateException();
+        if (numberOfNeighbors > classifiedData.size()) {
+            throw new IllegalStateException("Number of neighbors is bigger than the size of classified data.");
         }
-        final List<DistanceComparator> distances = new ArrayList<>();
+        final List<DistanceComparator<T>> distances = new ArrayList<>();
         for (Instance<T> datum : classifiedData) {
-            distances.add(new DistanceComparator(datum,distanceCalculator.calculate(datum, toClassify)));
+            distances.add(new DistanceComparatorImpl<>(
+                    datum,
+                    distanceCalculator.calculate(toClassify.getAttributes(), datum.getAttributes())
+            ));
         }
         return distances.stream()
                 .sorted()

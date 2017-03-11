@@ -3,20 +3,22 @@ package vicinusvinum.knn;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.junit.Assert.*;
 
 /**
  * Created by tobias.
  */
-public class ManhattanDistanceCalculatorTest {
+public class EuclideanDistanceCalculatorTest {
+
     private DistanceCalculator sut;
 
     @Before
     public void setUp() throws Exception {
         // Given
-        this.sut = new ManhattanDistanceCalculator();
+        this.sut = new EuclideanDistanceCalculator();
     }
 
     @Test
@@ -52,7 +54,7 @@ public class ManhattanDistanceCalculatorTest {
         Double[] b = {1d, 1d, 1d, 1d};
 
         // When
-        Throwable thrown = catchThrowable(() -> sut.calculate(a, b));
+       Throwable thrown = catchThrowable(() -> sut.calculate(a, b));
 
         // Then
         assertThat(thrown).isInstanceOf(IllegalStateException.class)

@@ -1,8 +1,10 @@
 package vicinusvinum.knn;
 
+import java.util.List;
+
 /**
  * Created by tobias.
  */
 public interface DistanceCalculator {
-    <T extends Comparable> Double calculate(Instance<T> a, Instance<T> b);
+    Double calculate(final Double[] a, final Double[] b);
 }

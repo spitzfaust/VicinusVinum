@@ -9,20 +9,6 @@ import java.util.stream.Collectors;
 /**
  * Created by tobias.
  */
-public class Classifier {
-    public Comparable classify(List<DistanceComparator> neighbors) {
-        Map<Comparable, Long> occurrences = neighbors.stream()
-                .collect(Collectors.groupingBy(dc -> dc.getInstance().getClassification(), Collectors.counting()));
-        if (new HashSet<>(occurrences.values()).size() == 1) {
-            return neighbors.stream()
-                    .min(Comparator.comparingDouble(DistanceComparator::getDistance))
-                    .get()
-                    .getInstance()
-                    .getClassification();
-        }
-        return occurrences.entrySet().stream()
-                .max((o1, o2) -> o1.getValue() > o2.getValue() ? 1 : -1)
-                .get()
-                .getKey();
-    }
+public interface Classifier {
+    <T extends Comparable> T classify(List<DistanceComparator<T>> neighbors);
 }

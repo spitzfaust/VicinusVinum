@@ -1,9 +1,13 @@
 package vicinusvinum.knn;
 
+import java.util.List;
+
 /**
  * Created by tobias.
  */
-public class ManhattanDistanceCalculator implements DistanceCalculator {
+public class EuclideanDistanceCalculator implements DistanceCalculator {
+
+
     @Override
     public Double calculate(final Double[] a, final Double[] b) {
         Double sum = 0d;
@@ -13,8 +17,8 @@ public class ManhattanDistanceCalculator implements DistanceCalculator {
         }
 
         for (int i = 0; i < a.length; i++) {
-            sum += Math.abs(a[i] - b[i]);
+            sum += Math.pow(a[i] - b[i], 2);
         }
-        return sum;
+        return Math.sqrt(sum);
     }
 }

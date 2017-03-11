@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import vicinusvinum.knn.Instance;
+import vicinusvinum.knn.InstanceImpl;
 
 /**
  * Created by tobias.
@@ -29,7 +30,7 @@ public class Main {
                     for (int i = 0; i < tokens.length; i++) {
                         convertedTokens[i] = Double.parseDouble(tokens[i]);
                     }
-                    instances.add(new Instance<>(convertedTokens[convertedTokens.length - 1], Arrays.copyOfRange(convertedTokens, 0, convertedTokens.length - 1)));
+                    instances.add(new InstanceImpl<>(convertedTokens[convertedTokens.length - 1], Arrays.copyOfRange(convertedTokens, 0, convertedTokens.length - 1)));
                 }
             }
         }
@@ -47,7 +48,7 @@ public class Main {
                 for (int i = 0; i < tokens.length -1; i++) {
                     convertedTokens[i] = Double.parseDouble(tokens[i]);
                 }
-                instances.add(new Instance<>(tokens[tokens.length - 1], convertedTokens));
+                instances.add(new InstanceImpl<>(tokens[tokens.length - 1], convertedTokens));
 
             }
         }
