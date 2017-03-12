@@ -17,13 +17,13 @@ import static org.mockito.Mockito.when;
  * Created by tobias.
  */
 @SuppressWarnings("Duplicates")
-public class NearestNeighborFinderSingleTest {
+public class NearestNeighborFinderParallelTest {
     private NearestNeighborFinder sut;
 
     @Before
     public void setUp() throws Exception {
         // Given
-        sut = new NearestNeighborFinderSingle();
+        sut = new NearestNeighborFinderParallel();
     }
 
     @Test
