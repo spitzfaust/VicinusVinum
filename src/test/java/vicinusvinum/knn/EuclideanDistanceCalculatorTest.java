@@ -57,7 +57,7 @@ public class EuclideanDistanceCalculatorTest {
        Throwable thrown = catchThrowable(() -> sut.calculate(a, b));
 
         // Then
-        assertThat(thrown).isInstanceOf(IllegalStateException.class)
+        assertThat(thrown).isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("The lengths of the a and b are not equal.");
     }
 
