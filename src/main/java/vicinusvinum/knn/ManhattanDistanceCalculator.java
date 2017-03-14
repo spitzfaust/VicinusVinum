@@ -11,8 +11,10 @@ public class ManhattanDistanceCalculator implements DistanceCalculator {
         if (a.length != b.length) {
             throw new IllegalArgumentException("The lengths of the a and b are not equal.");
         }
-        return IntStream.range(0, a.length)
-                .mapToDouble(i -> Math.abs(a[i] - b[i]))
-                .sum();
+        Double sum = 0d;
+        for (int i = 0; i < a.length; i++) {
+            sum += Math.abs(a[i] - b[i]);
+        }
+        return sum;
     }
 }

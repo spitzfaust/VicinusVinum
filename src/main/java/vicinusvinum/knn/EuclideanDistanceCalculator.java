@@ -14,10 +14,10 @@ public class EuclideanDistanceCalculator implements DistanceCalculator {
         if (a.length != b.length) {
             throw new IllegalArgumentException("The lengths of the a and b are not equal.");
         }
-        return Math.sqrt(
-                IntStream.range(0, a.length)
-                        .mapToDouble(i -> Math.pow(a[i] - b[i], 2))
-                        .sum()
-        );
+        Double sum = 0d;
+        for (int i = 0; i < a.length; i++) {
+            sum += Math.pow(a[i] - b[i], 2);
+        }
+        return Math.sqrt(sum);
     }
 }
