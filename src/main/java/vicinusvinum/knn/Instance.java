@@ -1,13 +1,11 @@
 package vicinusvinum.knn;
 
-import java.util.List;
-
 /**
  * Created by tobias.
  */
-public interface Instance<ClassificationType extends Comparable> {
+public interface Instance<LabelType extends Comparable> {
 
-    ClassificationType getClassification();
+    LabelType getLabel();
 
     Double[] getAttributes();
 

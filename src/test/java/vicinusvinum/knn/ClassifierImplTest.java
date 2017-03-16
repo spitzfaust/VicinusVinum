@@ -28,23 +28,23 @@ public class ClassifierImplTest {
     public void classifyShallReturnTheClassificationThatOccurredMostFrequent() throws Exception {
         // Given
         Instance<String> mostFrequentInstance = (Instance<String>) mock(Instance.class);
-        when(mostFrequentInstance.getClassification()).thenReturn("A");
-        DistanceComparator<String> distanceComparator1 = (DistanceComparator<String>) mock(DistanceComparator.class);
-        when(distanceComparator1.getInstance()).thenReturn(mostFrequentInstance);
-        DistanceComparator<String> distanceComparator2 = (DistanceComparator<String>) mock(DistanceComparator.class);
-        when(distanceComparator2.getInstance()).thenReturn(mostFrequentInstance);
+        when(mostFrequentInstance.getLabel()).thenReturn("A");
+        Pair<String> pair1 = (Pair<String>) mock(Pair.class);
+        when(pair1.getLabel()).thenReturn(mostFrequentInstance);
+        Pair<String> pair2 = (Pair<String>) mock(Pair.class);
+        when(pair2.getLabel()).thenReturn(mostFrequentInstance);
         Instance<String> lessFrequentInstance = (Instance<String>) mock(Instance.class);
-        when(lessFrequentInstance.getClassification()).thenReturn("B");
-        DistanceComparator<String> distanceComparator3 = (DistanceComparator<String>) mock(DistanceComparator.class);
-        when(distanceComparator3.getInstance()).thenReturn(lessFrequentInstance);
+        when(lessFrequentInstance.getLabel()).thenReturn("B");
+        Pair<String> pair3 = (Pair<String>) mock(Pair.class);
+        when(pair3.getLabel()).thenReturn(lessFrequentInstance);
 
         // When
-        final String result = sut.classify(Arrays.asList(distanceComparator1, distanceComparator2, distanceComparator3));
+        final String result = sut.classify(Arrays.asList(pair1, pair2, pair3));
 
         // Then
-        verify(distanceComparator1).getInstance();
-        verify(distanceComparator2).getInstance();
-        verify(distanceComparator3).getInstance();
+        verify(pair1).getLabel();
+        verify(pair2).getLabel();
+        verify(pair3).getLabel();
         assertThat(result).isEqualTo("A");
     }
 
@@ -52,30 +52,30 @@ public class ClassifierImplTest {
     public void classifyShallReturnTheClassificationWithTheSmallestDistanceIfTheClassificationsAreDistributedEven() throws Exception {
         // Given
         Instance<String> instanceA = (Instance<String>) mock(Instance.class);
-        when(instanceA.getClassification()).thenReturn("A");
-        DistanceComparator<String> distanceComparator1 = (DistanceComparator<String>) mock(DistanceComparator.class);
-        when(distanceComparator1.getInstance()).thenReturn(instanceA);
-        when(distanceComparator1.getDistance()).thenReturn(12d);
+        when(instanceA.getLabel()).thenReturn("A");
+        Pair<String> pair1 = (Pair<String>) mock(Pair.class);
+        when(pair1.getLabel()).thenReturn(instanceA);
+        when(pair1.getDistance()).thenReturn(12d);
 
         Instance<String> instanceB = (Instance<String>) mock(Instance.class);
-        when(instanceB.getClassification()).thenReturn("B");
-        DistanceComparator<String> distanceComparator2 = (DistanceComparator<String>) mock(DistanceComparator.class);
-        when(distanceComparator2.getInstance()).thenReturn(instanceB);
-        when(distanceComparator2.getDistance()).thenReturn(33d);
+        when(instanceB.getLabel()).thenReturn("B");
+        Pair<String> pair2 = (Pair<String>) mock(Pair.class);
+        when(pair2.getLabel()).thenReturn(instanceB);
+        when(pair2.getDistance()).thenReturn(33d);
 
         Instance<String> instanceC = (Instance<String>) mock(Instance.class);
-        when(instanceC.getClassification()).thenReturn("C");
-        DistanceComparator<String> distanceComparator3 = (DistanceComparator<String>) mock(DistanceComparator.class);
-        when(distanceComparator3.getInstance()).thenReturn(instanceC);
-        when(distanceComparator3.getDistance()).thenReturn(6d);
+        when(instanceC.getLabel()).thenReturn("C");
+        Pair<String> pair3 = (Pair<String>) mock(Pair.class);
+        when(pair3.getLabel()).thenReturn(instanceC);
+        when(pair3.getDistance()).thenReturn(6d);
 
         // When
-        final String result = sut.classify(Arrays.asList(distanceComparator1, distanceComparator2, distanceComparator3));
+        final String result = sut.classify(Arrays.asList(pair1, pair2, pair3));
 
         // Then
-        verify(distanceComparator1).getInstance();
-        verify(distanceComparator2).getInstance();
-        verify(distanceComparator3, times(2)).getInstance();
+        verify(pair1).getLabel();
+        verify(pair2).getLabel();
+        verify(pair3, times(2)).getLabel();
 
         assertThat(result).isEqualTo("C");
     }

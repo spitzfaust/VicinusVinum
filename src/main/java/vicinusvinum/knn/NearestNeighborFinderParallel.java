@@ -1,6 +1,6 @@
 package vicinusvinum.knn;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class NearestNeighborFinderParallel implements NearestNeighborFinder {
 
     @Override
-    public <T extends Comparable> List<DistanceComparator<T>> find(final Instance<T> toClassify, final List<Instance<T>> classifiedData, final long numberOfNeighbors, final DistanceCalculator distanceCalculator) {
+    public <T extends Comparable> List<Pair<T, Double>> find(final Instance<T> toClassify, final List<Instance<T>> classifiedData, final long numberOfNeighbors, final DistanceCalculator distanceCalculator) {
         if (numberOfNeighbors <= 0) {
             throw new IllegalStateException("Number of neighbors is 0 or below 0.");
         }
@@ -21,11 +21,11 @@ public class NearestNeighborFinderParallel implements NearestNeighborFinder {
             throw new IllegalStateException("Number of neighbors is bigger than the size of classified data.");
         }
         return classifiedData.parallelStream()
-                .map(instance -> new DistanceComparatorImpl<>(
-                        instance,
+                .map(instance -> new PairImpl<>(
+                        instance.getLabel(),
                         distanceCalculator.calculate(toClassify.getAttributes(), instance.getAttributes())
                     ))
-                .sorted()
+                .sorted(Comparator.comparingDouble(Pair::getSecond))
                 .limit(numberOfNeighbors)
                 .collect(Collectors.toList());
 

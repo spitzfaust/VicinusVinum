@@ -31,27 +31,27 @@ public class NearestNeighborFinderParallelTest {
         // Given
         Double[] toClassifyAttributes = new Double[] {1d, 1d, 1d, 1d};
         Instance<String> toClassify = (Instance<String>) mock(Instance.class);
-        when(toClassify.getClassification()).thenReturn(null);
+        when(toClassify.getLabel()).thenReturn(null);
         when(toClassify.getAttributes()).thenReturn(toClassifyAttributes);
 
         Double[] classifiedAAttributes = new Double[] {1d, 1d, 1d, 1d};
         Instance<String> classifiedA = (Instance<String>) mock(Instance.class);
-        when(classifiedA.getClassification()).thenReturn("A");
+        when(classifiedA.getLabel()).thenReturn("A");
         when(classifiedA.getAttributes()).thenReturn(classifiedAAttributes);
 
         Double[] classifiedBAttributes = new Double[] {2d, 1d, 1d, 1d};
         Instance<String> classifiedB = (Instance<String>) mock(Instance.class);
-        when(classifiedB.getClassification()).thenReturn("B");
+        when(classifiedB.getLabel()).thenReturn("B");
         when(classifiedB.getAttributes()).thenReturn(classifiedBAttributes);
 
         Double[] classifiedCAttributes = new Double[] {3d, 1d, 1d, 1d};
         Instance<String> classifiedC = (Instance<String>) mock(Instance.class);
-        when(classifiedC.getClassification()).thenReturn("C");
+        when(classifiedC.getLabel()).thenReturn("C");
         when(classifiedC.getAttributes()).thenReturn(classifiedCAttributes);
 
         Double[] classifiedDAttributes = new Double[] {2d, 2d, 1d, 1d};
         Instance<String> classifiedD = (Instance<String>) mock(Instance.class);
-        when(classifiedD.getClassification()).thenReturn("D");
+        when(classifiedD.getLabel()).thenReturn("D");
         when(classifiedD.getAttributes()).thenReturn(classifiedDAttributes);
 
         List<Instance<String>> classifiedInstances = Arrays.asList(classifiedA, classifiedB, classifiedC, classifiedD);
@@ -63,7 +63,7 @@ public class NearestNeighborFinderParallelTest {
         when(distanceCalculator.calculate(toClassifyAttributes, classifiedDAttributes)).thenReturn(0.7d);
 
         // When
-        final List<DistanceComparator<String>> result = sut.find(toClassify, classifiedInstances, 3, distanceCalculator);
+        final List<Pair<String>> result = sut.find(toClassify, classifiedInstances, 3, distanceCalculator);
 
         // Then
         verify(distanceCalculator).calculate(toClassifyAttributes, classifiedAAttributes);
@@ -72,9 +72,9 @@ public class NearestNeighborFinderParallelTest {
         verify(distanceCalculator).calculate(toClassifyAttributes, classifiedDAttributes);
 
         assertThat(result).hasSize(3);
-        assertThat(result).extracting(DistanceComparator::getInstance)
+        assertThat(result).extracting(Pair::getLabel)
                 .doesNotContain(classifiedC);
-        assertThat(result).extracting(DistanceComparator::getInstance)
+        assertThat(result).extracting(Pair::getLabel)
                 .contains(classifiedA, classifiedB, classifiedD);
     }
 

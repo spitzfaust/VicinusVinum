@@ -1,7 +1,5 @@
 package vicinusvinum.knn;
 
-import java.util.stream.IntStream;
-
 /**
  * Created by tobias.
  */

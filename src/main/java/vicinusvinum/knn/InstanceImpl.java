@@ -3,18 +3,18 @@ package vicinusvinum.knn;
 /**
  * Created by tobias.
  */
-public class InstanceImpl<ClassificationType extends Comparable> implements Instance<ClassificationType> {
-    private final ClassificationType classification;
+public class InstanceImpl<LabelType extends Comparable> implements Instance<LabelType> {
+    private final LabelType label;
     private final Double[] attributes;
 
-    public InstanceImpl(ClassificationType classification, Double[] attributes) {
-        this.classification = classification;
+    public InstanceImpl(LabelType label, Double[] attributes) {
+        this.label = label;
         this.attributes = attributes;
     }
 
     @Override
-    public ClassificationType getClassification() {
-        return classification;
+    public LabelType getLabel() {
+        return label;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class InstanceImpl<ClassificationType extends Comparable> implements Inst
     @Override
     public String toString() {
         return "Instance{" +
-                "classification=" + classification +
+                "label=" + label +
                 ", attributes=" + attributes.length +
                 '}';
     }
