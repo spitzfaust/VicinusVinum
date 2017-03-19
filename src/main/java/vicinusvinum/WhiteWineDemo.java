@@ -14,7 +14,7 @@ import vicinusvinum.knn.InstanceImpl;
 /**
  * Created by tobias.
  */
-public class WhiteWineDemo extends Demo {
+public class WhiteWineDemo extends Demo<Double> {
     @Override
     protected List<Instance<Double>> getInstances() throws IOException {
         File data;

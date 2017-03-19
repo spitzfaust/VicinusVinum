@@ -15,7 +15,7 @@ import vicinusvinum.knn.InstanceImpl;
 /**
  * Created by tobias.
  */
-public class IrisDemo extends Demo {
+public class IrisDemo extends Demo<String> {
 
     @Override
     protected List<Instance<String>> getInstances() throws IOException {
@@ -36,24 +36,5 @@ public class IrisDemo extends Demo {
             }
         }
         return instances;
-    }
-
-    @Override
-    protected <T extends Comparable> List<Instance<T>> prepareClassifiedData(List<Instance<T>> dataToPrepare) {
-        List<T> labels = dataToPrepare.stream()
-                .map(Instance::getLabel)
-                .distinct()
-                .collect(Collectors.toList());
-        List<Instance<T>> classifiedData = new ArrayList<>();
-        System.out.println(labels);
-        for (T label : labels) {
-            classifiedData.addAll(
-                    dataToPrepare.stream()
-                            .filter(i -> i.getLabel().equals(label))
-                            .limit(35)
-                            .collect(Collectors.toList())
-            );
-        }
-        return classifiedData;
     }
 }

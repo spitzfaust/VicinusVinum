@@ -27,24 +27,22 @@ public class ClassifierImplTest {
     @Test
     public void classifyShallReturnTheClassificationThatOccurredMostFrequent() throws Exception {
         // Given
-        Instance<String> mostFrequentInstance = (Instance<String>) mock(Instance.class);
-        when(mostFrequentInstance.getLabel()).thenReturn("A");
-        Pair<String> pair1 = (Pair<String>) mock(Pair.class);
-        when(pair1.getLabel()).thenReturn(mostFrequentInstance);
-        Pair<String> pair2 = (Pair<String>) mock(Pair.class);
-        when(pair2.getLabel()).thenReturn(mostFrequentInstance);
-        Instance<String> lessFrequentInstance = (Instance<String>) mock(Instance.class);
-        when(lessFrequentInstance.getLabel()).thenReturn("B");
-        Pair<String> pair3 = (Pair<String>) mock(Pair.class);
-        when(pair3.getLabel()).thenReturn(lessFrequentInstance);
+        String mostFrequentLabel = "A";
+        Pair<String, Double> pair1 = (Pair<String, Double>) mock(Pair.class);
+        when(pair1.getFirst()).thenReturn(mostFrequentLabel);
+        Pair<String, Double> pair2 = (Pair<String, Double>) mock(Pair.class);
+        when(pair2.getFirst()).thenReturn(mostFrequentLabel);
+        String lessFrequentLabel = "B";
+        Pair<String, Double> pair3 = (Pair<String, Double>) mock(Pair.class);
+        when(pair3.getFirst()).thenReturn(lessFrequentLabel);
 
         // When
         final String result = sut.classify(Arrays.asList(pair1, pair2, pair3));
 
         // Then
-        verify(pair1).getLabel();
-        verify(pair2).getLabel();
-        verify(pair3).getLabel();
+        verify(pair1).getFirst();
+        verify(pair2).getFirst();
+        verify(pair3).getFirst();
         assertThat(result).isEqualTo("A");
     }
 

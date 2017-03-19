@@ -2,7 +2,12 @@ package vicinusvinum;
 
 import java.io.IOException;
 
+import vicinusvinum.knn.Classifier;
+import vicinusvinum.knn.ClassifierImpl;
+import vicinusvinum.knn.DistanceCalculator;
 import vicinusvinum.knn.EuclideanDistanceCalculator;
+import vicinusvinum.knn.NearestNeighborFinder;
+import vicinusvinum.knn.NearestNeighborFinderParallel;
 import vicinusvinum.knn.NearestNeighborFinderSingle;
 
 /**
@@ -14,10 +19,30 @@ public class Main {
         final Demo redWineDemo = new RedWineDemo();
         final Demo whiteWineDemo = new WhiteWineDemo();
         final Demo irisDemo = new IrisDemo();
+        final DistanceCalculator distanceCalculator = new EuclideanDistanceCalculator();
+        final NearestNeighborFinder nearestNeighborFinder = new NearestNeighborFinderParallel();
+        final Classifier classifier = new ClassifierImpl();
+        new NearestNeighborFinderParallel();
+        System.out.println("===RED WINE DEMO===");
+        redWineDemo.start(1000, 3, distanceCalculator, nearestNeighborFinder);
+        redWineDemo.start(10000, 3, distanceCalculator, nearestNeighborFinder);
+        redWineDemo.start(100000, 3, distanceCalculator, nearestNeighborFinder);
+        System.out.println("-");
+        redWineDemo.runConfusionMatrix(10, classifier, nearestNeighborFinder, distanceCalculator, 3);
 
-        //redWineDemo.start(10000, 3, new EuclideanDistanceCalculator(), new NearestNeighborFinderSingle());
-        //whiteWineDemo.start(10000, 3, new EuclideanDistanceCalculator(), new NearestNeighborFinderSingle());
-        irisDemo.start(10000, 3, new EuclideanDistanceCalculator(), new NearestNeighborFinderSingle());
+        System.out.println("===WHITE WINE DEMO===");
+        whiteWineDemo.start(1000, 3, distanceCalculator, nearestNeighborFinder);
+        whiteWineDemo.start(10000, 3, distanceCalculator, nearestNeighborFinder);
+        whiteWineDemo.start(100000, 3, distanceCalculator, nearestNeighborFinder);
+        System.out.println("-");
+        whiteWineDemo.runConfusionMatrix(10, classifier, nearestNeighborFinder, distanceCalculator, 3);
+
+        System.out.println("===IRIS DEMO===");
+        irisDemo.start(1000, 3, distanceCalculator, nearestNeighborFinder);
+        irisDemo.start(10000, 3, distanceCalculator, nearestNeighborFinder);
+        irisDemo.start(100000, 3, distanceCalculator, nearestNeighborFinder);
+        System.out.println("-");
+        irisDemo.runConfusionMatrix(10, classifier, nearestNeighborFinder, distanceCalculator, 3);
 
     }
 }
