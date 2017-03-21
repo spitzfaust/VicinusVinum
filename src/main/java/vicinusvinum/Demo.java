@@ -5,19 +5,16 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import vicinusvinum.knn.Classifier;
 import vicinusvinum.knn.ClassifierImpl;
 import vicinusvinum.knn.DistanceCalculator;
-import vicinusvinum.knn.Pair;
 import vicinusvinum.knn.Instance;
 import vicinusvinum.knn.NearestNeighborFinder;
+import vicinusvinum.knn.Pair;
 import vicinusvinum.knn.PairImpl;
 
 /**
@@ -29,6 +26,7 @@ abstract class Demo<T extends Comparable> {
     public Demo() {
         try {
             instances = getInstances();
+            System.out.println(instances.size());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -84,24 +82,7 @@ abstract class Demo<T extends Comparable> {
         }
         System.out.println("Confusion Matrix: ");
         System.out.println(confusionMatrix.getMatrix());
-    }
-
-    protected List<Instance<T>> prepareClassifiedData(List<Instance<T>> dataToPrepare) {
-        Map<T, Long> occurrences = dataToPrepare.stream()
-                .collect(Collectors.groupingBy(Instance::getLabel, Collectors.counting()));
-        Long min = occurrences.values().stream()
-                .min(Comparator.comparingLong(v -> v))
-                .get();
-        List<Instance<T>> classifiedData = new ArrayList<>();
-        for (T classification : occurrences.keySet()) {
-            classifiedData.addAll(
-                    dataToPrepare.stream()
-                            .filter(i -> i.getLabel().equals(classification))
-                            .limit(min)
-                            .collect(Collectors.toList())
-            );
-        }
-        return classifiedData;
+        System.out.println("Accuracy: " + confusionMatrix.getAccuracy());
     }
 
     protected abstract List<Instance<T>> getInstances() throws IOException;

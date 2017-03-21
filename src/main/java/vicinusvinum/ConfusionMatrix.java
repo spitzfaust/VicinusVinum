@@ -1,10 +1,7 @@
 package vicinusvinum;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 /**
  * Created by tobias.
@@ -50,5 +47,8 @@ public class ConfusionMatrix <T extends Comparable> {
         return correct;
     }
 
+    public double getAccuracy() {
+        return (double) correct / (double) total;
+    }
 }
 
