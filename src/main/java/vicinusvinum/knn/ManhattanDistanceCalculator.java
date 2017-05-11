@@ -1,7 +1,8 @@
 package vicinusvinum.knn;
 
 /**
- * Created by tobias.
+ * Distance calculator that uses the Manhattan distance formula.
+ * sum(|ai-bi|)
  */
 public class ManhattanDistanceCalculator implements DistanceCalculator {
     @Override

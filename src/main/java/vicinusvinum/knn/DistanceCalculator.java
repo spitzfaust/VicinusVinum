@@ -1,10 +1,15 @@
 package vicinusvinum.knn;
 
-import java.util.List;
-
 /**
- * Created by tobias.
+ * Interface for distance calculator.
  */
+@FunctionalInterface
 public interface DistanceCalculator {
+    /**
+     * Calculate the distance between two vectors.
+     * @param a first vector
+     * @param b second vector
+     * @return distance
+     */
     Double calculate(final Double[] a, final Double[] b);
 }

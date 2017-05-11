@@ -24,25 +24,25 @@ public class Main {
         final Classifier classifier = new ClassifierImpl();
         new NearestNeighborFinderParallel();
         System.out.println("===RED WINE DEMO===");
-        redWineDemo.start(1000, 3, distanceCalculator, nearestNeighborFinder);
-        redWineDemo.start(10000, 3, distanceCalculator, nearestNeighborFinder);
-        redWineDemo.start(100000, 3, distanceCalculator, nearestNeighborFinder);
-        System.out.println("-");
         redWineDemo.runConfusionMatrix(10, classifier, nearestNeighborFinder, distanceCalculator, 3);
+        System.out.println("-");
+        //redWineDemo.start(1000, 3, distanceCalculator, nearestNeighborFinder);
+        //redWineDemo.start(10000, 3, distanceCalculator, nearestNeighborFinder);
+        //redWineDemo.start(100000, 3, distanceCalculator, nearestNeighborFinder);
 
         System.out.println("===WHITE WINE DEMO===");
-        whiteWineDemo.start(1000, 3, distanceCalculator, nearestNeighborFinder);
-        whiteWineDemo.start(10000, 3, distanceCalculator, nearestNeighborFinder);
-        whiteWineDemo.start(100000, 3, distanceCalculator, nearestNeighborFinder);
-        System.out.println("-");
         whiteWineDemo.runConfusionMatrix(10, classifier, nearestNeighborFinder, distanceCalculator, 3);
+        System.out.println("-");
+        //whiteWineDemo.start(1000, 3, distanceCalculator, nearestNeighborFinder);
+        //whiteWineDemo.start(10000, 3, distanceCalculator, nearestNeighborFinder);
+        //whiteWineDemo.start(100000, 3, distanceCalculator, nearestNeighborFinder);
 
         System.out.println("===IRIS DEMO===");
-        irisDemo.start(1000, 3, distanceCalculator, nearestNeighborFinder);
-        irisDemo.start(10000, 3, distanceCalculator, nearestNeighborFinder);
-        irisDemo.start(100000, 3, distanceCalculator, nearestNeighborFinder);
-        System.out.println("-");
         irisDemo.runConfusionMatrix(10, classifier, nearestNeighborFinder, distanceCalculator, 3);
+        System.out.println("-");
+        //irisDemo.start(1000, 3, distanceCalculator, nearestNeighborFinder);
+        //irisDemo.start(10000, 3, distanceCalculator, nearestNeighborFinder);
+        //irisDemo.start(100000, 3, distanceCalculator, nearestNeighborFinder);
 
     }
 }

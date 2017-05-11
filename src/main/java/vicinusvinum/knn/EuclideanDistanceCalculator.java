@@ -1,7 +1,8 @@
 package vicinusvinum.knn;
 
 /**
- * Created by tobias.
+ * Distance calculator that uses the Euclidean distance formula.
+ * sqrt(sum((ai-bi)^2))
  */
 public class EuclideanDistanceCalculator implements DistanceCalculator {
 
